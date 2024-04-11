@@ -113,14 +113,14 @@ function getAllOrNothing(promises) {
  * [Promise.resolve(1), Promise.reject(2), Promise.resolve(3)]  => Promise fulfilled with [1, null, 3]
  */
 function getAllResult(promises) {
-  return Promise.allSettled(promises).then(
-    promises.map((result) => {
+  return Promise.allSettled(promises).then((results) => {
+    return results.map((result) => {
       if (result.status === 'rejected') {
         return null;
       }
-      return result;
-    })
-  );
+      return result.value;
+    });
+  });
 }
 
 /**
